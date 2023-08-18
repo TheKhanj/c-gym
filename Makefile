@@ -1,5 +1,16 @@
-curl: curl.c
-	gcc $< -o $@ -lcurl
+CC = gcc
+CFLAGS = 
+LIBS = -lcurl
+
+SRCS := $(wildcard *.c)
+EXES := $(patsubst %.c,%,$(SRCS))
+
+.PHONY: all clean
+
+all: $(EXES)
+
+%: %.c
+	$(CC) $(CFLAGS) $< -o $@ $(LIBS)
 
 clean:
-	rm curl
+	rm -f $(EXES)
